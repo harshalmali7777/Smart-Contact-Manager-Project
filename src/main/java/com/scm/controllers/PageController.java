@@ -3,6 +3,7 @@ package com.scm.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import com.scm.entities.User;
 import com.scm.forms.UserForm;
 import com.scm.services.UserService;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class PageController {
@@ -66,13 +69,16 @@ public class PageController {
     // processing register
 
     @RequestMapping(value = "/do-register", method = RequestMethod.POST)
-    public String processRegister(@ModelAttribute UserForm userForm) {
+    public String processRegister(@Valid @ModelAttribute UserForm userForm, BindingResult rBindingResult) {
         System.out.println("Processing Register");
         // fetch form data
         // UserForm
 
         System.out.println(userForm);
         // validate form data
+        if(rBindingResult.hasErrors()) {
+            return "register";
+        }
         // TODO::Validate userForm[Next Video]
 
         // save to database

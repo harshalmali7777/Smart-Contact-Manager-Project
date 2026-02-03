@@ -26,16 +26,24 @@
   </head>
   <body class="dark:bg-gray-900 bg-gray-100 dark:text-white text-black">
     <!-- common header-->
-    <div data-th-replace="navbar :: navbar"></div>
+     <!--  user is logged in : navbar -->
+    <div th:if="${loggedInUser}">
+      <div data-th-replace="~{user/user_navbar::user-navbar}"></div>
+    </div>
+
+    <!-- user is not logged : navbar -->
+    <div th:unless="${loggedInUser}">
+      <div data-th-replace="~{navbar :: navbar}"></div>
+    </div>
+
     <!-- main content -->
     <div class="p-4">
       <section data-th-replace="${content}"></section>
     </div>
+    <!-- flow bite content -->
+
     <!-- common footer -->
-    <!-- <footer class="p-4">
-        Footer: Learn with me
-     </footer> -->
-    <!-- flow bite content-->
+    <!-- <footer class="p-4">Footer: Learn Code With Durgesh</footer> -->
     <script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
     <script data-th-src="@{'/js/script.js'}"></script>
     <th:block data-th-replace="${script}"></th:block>

@@ -2,6 +2,9 @@ package com.scm.entities;
 
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 
 import jakarta.persistence.CascadeType;
@@ -38,6 +41,7 @@ public class Contact {
     private String cloudinaryImagePublicId;
 
     @ManyToOne
+    @JsonIgnore
     private User user;
 
     @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true)

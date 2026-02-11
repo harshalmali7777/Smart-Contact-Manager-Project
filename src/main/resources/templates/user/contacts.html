@@ -22,6 +22,7 @@
           <p class="text-center">List of all contacts</p>
           <div class="contacts_container p-5">
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+              <div data-th-replace="~{message :: messagebox}"></div>
               <form data-th-object="${contactSearchForm}" action="" data-th-action="@{'/user/contacts/search'}">
                 <div
                 class="flex p-5 space-x-3 items-center justify-start flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900"
@@ -133,6 +134,7 @@
                         <a data-th-href="@{*{websiteLink}}" target="_blank">
                           <i class="fa-solid w-6 h-6 fa-link"></i>
                         </a>
+
                         <a data-th-href="@{*{linkedInLink}}" target="_blank">
                           <i class="fa-brands w-6 h-6 fa-linkedin"></i>
                         </a>
@@ -140,12 +142,18 @@
                     </td>
                     <td class="px-6 py-4">
                       <div>
-                        <a href="">
+                        <!-- <a href="">
                           <i class="fa-solid w-6 h-6 fa-trash"></i>
-                        </a>
-                        <a href="">
-                          <i class="fa-solid w-6 h-6 fa-pen"></i>
-                        </a>
+                        </a> -->
+                        <!-- delete contact -->
+                        <button th:onclick="deleteContact([[${c.id}]])">
+                          <i class="fa-solid w-6 h-6 fa-trash"></i>
+                        </button>
+                        <!-- update contact -->
+                        <a data-th-href="@{'/user/contacts/view/'+*{id}}">
+                          <i class="fa-solid w-6 h-6 fa-pen"></i
+                        ></a>
+                        <!-- viewcontact-->
                         <button th:onclick="loadContactdata([[${c.id}]])">
                           <i class="fa-solid fa-eye"></i>
                         </button>

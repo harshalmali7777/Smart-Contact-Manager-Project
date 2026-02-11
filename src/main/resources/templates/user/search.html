@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html
   lang="en"
   th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}"
@@ -108,7 +108,10 @@
                     class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
                   >
                     <img
-                      onerror="this.src='https://cdn141.picsart.com/321556657089211.png'"
+                      onerror="
+                        this.src =
+                          'https://cdn141.picsart.com/321556657089211.png'
+                      "
                       class="w-10 h-10 rounded-full"
                       data-th-src="@{*{picture}}"
                       src="/docs/images/people/profile-picture-1.jpg"
@@ -154,7 +157,9 @@
                         <i class="fa-solid w-6 h-6 fa-trash"></i>
                       </a>
                       <a href=""> <i class="fa-solid w-6 h-6 fa-pen"></i></a>
-                      <a href=""> <i class="fa-solid fa-eye"></i></a>
+                      <button th:onclick="loadContactdata([[${c.id}]])">
+                        <i class="fa-solid fa-eye"></i>
+                      </button>
                     </div>
                   </td>
                 </tr>
@@ -209,8 +214,11 @@
             </h1>
           </div>
         </div>
+        <div data-th-replace="~{user/contact_modals :: contact}"></div>
       </div>
     </div>
+
+    <script data-th-src="@{'/js/contacts.js'}"></script>
 
     <script>
       console.log("this is profile page");

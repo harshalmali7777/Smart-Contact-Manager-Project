@@ -33,8 +33,20 @@ public class ContactServiceImpl implements ContactService
 
     @Override
     public Contact update(Contact contact) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        var contactOld = contactRepo.findById(contact.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Contact not found"));
+        contactOld.setName(contact.getName());
+        contactOld.setEmail(contact.getEmail());
+        contactOld.setPhoneNumber(contact.getPhoneNumber());
+        contactOld.setAddress(contact.getAddress());
+        contactOld.setDescription(contact.getDescription());
+        contactOld.setPicture(contact.getPicture());
+        contactOld.setFavourite(contact.isFavourite());
+        contactOld.setWebsiteLink(contact.getWebsiteLink());
+        contactOld.setLinkedInLink(contact.getLinkedInLink());
+        contactOld.setCloudinaryImagePublicId(contact.getCloudinaryImagePublicId());
+
+        return contactRepo.save(contactOld);
     }
 
     @Override
@@ -56,8 +68,6 @@ public class ContactServiceImpl implements ContactService
 
     }
 
-   
-
     @Override
     public List<Contact> getByUserId(String userId) {
         return contactRepo.findByUserId(userId);
@@ -65,13 +75,13 @@ public class ContactServiceImpl implements ContactService
     }
 
     @Override
-    public Page<Contact> getByUser(User user,int page, int size, String sortBy, String direction) {
-        Sort sort = direction.equals("desc")? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
-        var pageable = PageRequest.of(page,size,sort);
+    public Page<Contact> getByUser(User user, int page, int size, String sortBy, String direction) {
+        Sort sort = direction.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        var pageable = PageRequest.of(page, size, sort);
         return contactRepo.findByUser(user, pageable);
     }
 
-     @Override
+    @Override
     public Page<Contact> searchByName(String nameKeyword, int size, int page, String sortBy, String order, User user) {
 
         Sort sort = order.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();

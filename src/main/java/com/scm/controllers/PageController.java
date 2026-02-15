@@ -33,7 +33,6 @@ public class PageController {
     @RequestMapping("/home")
     public String home(Model model) {
         System.out.println("Home page handler");
-
         // sending data to view
         model.addAttribute("name", "Substring Technologies");
         model.addAttribute("YoutubeChannel", "Learn");
@@ -93,15 +92,25 @@ public class PageController {
 
         // save to database
         // userservices
-        User user = User.builder()
-                .name(userForm.getName())
-                .email(userForm.getEmail())
-                .password(userForm.getPassword())
-                .about(userForm.getAbout())
-                .phoneNumber(userForm.getPhoneNumber())
-                .profilePic(
-                        "https://www.learncodewithdurgesh.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fdurgesh_sir.35c6cb78.webp&w=1920&q=75")
-                .build();
+        // User user = User.builder()
+        //         .name(userForm.getName())
+        //         .email(userForm.getEmail())
+        //         .password(userForm.getPassword())
+        //         .about(userForm.getAbout())
+        //         .phoneNumber(userForm.getPhoneNumber())
+        //         .profilePic(
+        //                 "https://www.learncodewithdurgesh.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fdurgesh_sir.35c6cb78.webp&w=1920&q=75")
+        //         .build();
+
+        User user = new User();
+        user.setName(userForm.getName());
+        user.setEmail(userForm.getEmail());
+        user.setPassword(userForm.getPassword());
+        user.setAbout(userForm.getAbout());
+        user.setPhoneNumber(userForm.getPhoneNumber());
+        user.setEnabled(false);
+        user.setProfilePic(
+                "https://www.learncodewithdurgesh.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fdurgesh_sir.35c6cb78.webp&w=1920&q=75");
 
         User savedUser = userService.saveUser(user);
 
